@@ -1,0 +1,9 @@
+{
+	"useTabs": true,
+	"singleQuote": false,
+	"trailingComma": "none",
+	"semi": true,
+	"printWidth": 100,
+	"plugins": ["prettier-plugin-tailwindcss"],
+	"filepath": "src/**/*.{js,jsx,ts,tsx}"
+}
