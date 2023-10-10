@@ -20,7 +20,7 @@ const Pagination: React.FC<PaginationProps> = ({
 	const endPage = Math.min(totalPages, currentPage + pageRange);
 
 	return (
-		<div className="flex items-center justify-center space-x-2 sm:space-x-4">
+		<div className=" mt-8 flex items-center justify-center space-x-2 sm:space-x-4">
 			<button
 				onClick={onFirstPage}
 				className={`rounded border p-1 text-sm sm:p-2 sm:text-base ${
