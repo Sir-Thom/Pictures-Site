@@ -15,19 +15,12 @@ const Pagination: React.FC<PaginationProps> = ({
 	onFirstPage,
 	onLastPage
 }) => {
-	// Calculate the range of pages to display
 	const pageRange = 3; // Number of pages to show on each side of the current page
-	let startPage = Math.max(1, currentPage - pageRange);
-	let endPage = Math.min(totalPages, currentPage + pageRange);
-
-	// Ensure that the last page displays correctly
-	if (currentPage + pageRange > totalPages) {
-		endPage = totalPages;
-		startPage = Math.max(1, totalPages - 2 * pageRange);
-	}
+	const startPage = Math.max(1, currentPage - pageRange);
+	const endPage = Math.min(totalPages, currentPage + pageRange);
 
 	return (
-		<div className="mt-6 flex items-center justify-center space-x-4">
+		<div className="mt-8 flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
 			<button
 				onClick={onFirstPage}
 				className={`rounded border p-2 ${
@@ -62,7 +55,6 @@ const Pagination: React.FC<PaginationProps> = ({
 					{startPage + index}
 				</button>
 			))}
-
 			<button
 				onClick={() => onPageChange(currentPage + 1)}
 				disabled={currentPage === totalPages}
