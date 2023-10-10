@@ -20,10 +20,10 @@ const Pagination: React.FC<PaginationProps> = ({
 	const endPage = Math.min(totalPages, currentPage + pageRange);
 
 	return (
-		<div className="mt-8 flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
+		<div className="flex items-center justify-center space-x-2 sm:space-x-4">
 			<button
 				onClick={onFirstPage}
-				className={`rounded border p-2 ${
+				className={`rounded border p-1 text-sm sm:p-2 sm:text-base ${
 					currentPage === 1
 						? "bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
 						: "dark:border-dark bg-white dark:bg-gray-700 dark:text-gray-300"
@@ -34,7 +34,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			<button
 				onClick={() => onPageChange(currentPage - 1)}
 				disabled={currentPage === 1}
-				className={`rounded border p-2 ${
+				className={`rounded border p-1 text-sm sm:p-2 sm:text-base ${
 					currentPage === 1
 						? "bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
 						: "dark:border-dark bg-white dark:bg-gray-700 dark:text-gray-300"
@@ -46,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({
 				<button
 					key={startPage + index}
 					onClick={() => onPageChange(startPage + index)}
-					className={`rounded border p-2 ${
+					className={`rounded border p-1 text-sm sm:p-2 sm:text-base ${
 						currentPage === startPage + index
 							? "bg-blue-500 text-white dark:bg-blue-500 dark:text-white"
 							: "dark:border-dark bg-white dark:bg-gray-700 dark:text-gray-300"
@@ -58,7 +58,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			<button
 				onClick={() => onPageChange(currentPage + 1)}
 				disabled={currentPage === totalPages}
-				className={`rounded border p-2 ${
+				className={`rounded border p-1 text-sm sm:p-2 sm:text-base ${
 					currentPage === totalPages
 						? "bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
 						: "dark:border-dark bg-white dark:bg-gray-700 dark:text-gray-300"
@@ -68,7 +68,7 @@ const Pagination: React.FC<PaginationProps> = ({
 			</button>
 			<button
 				onClick={onLastPage}
-				className={`rounded border p-2 ${
+				className={`rounded border p-1 text-sm sm:p-2 sm:text-base ${
 					currentPage === totalPages
 						? "bg-gray-300 text-gray-600 dark:bg-gray-700 dark:text-gray-300"
 						: "dark:border-dark bg-white dark:bg-gray-700 dark:text-gray-300"
