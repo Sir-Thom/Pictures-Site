@@ -24,8 +24,8 @@ const fetchImages = async (currentPage: number, limit: number) => {
 		// Check if there are fewer images than the limit remaining
 		const remainingImages = Math.max(0, limit - data.length);
 
-		// Fetch additional images if available
 		if (remainingImages > 0) {
+			// Fetch additional images only if there are additional images available
 			const additionalResponse = await fetch(
 				`${import.meta.env.VITE_URL_API}/pictures/paginated/?last_seen_id=${
 					lastSeenId + data.length
@@ -33,9 +33,7 @@ const fetchImages = async (currentPage: number, limit: number) => {
 			);
 			if (additionalResponse.ok) {
 				const additionalData = await additionalResponse.json();
-				if (additionalData.length > 0) {
-					data.push(...additionalData);
-				}
+				data.push(...additionalData);
 			}
 		}
 
@@ -53,16 +51,19 @@ const fetchTotalPages = async () => {
 		if (!response.ok) {
 			throw new Error(`API request failed with status ${response.status}`);
 		}
+
 		const data = await response.json();
 
 		const totalImages = data.count;
-		console.log(totalImages);
-		const totalPages = Math.ceil(totalImages / PAGE_SIZE);
+		console.log("Total Images: " + totalImages);
 
-		// If the total number of images is not evenly divisible by PAGE_SIZE, add 1 page
-		if (totalImages % PAGE_SIZE !== 0) {
-			return totalPages + 1;
+		// Calculate the total number of pages based on PAGE_SIZE
+		const totalPages = Math.ceil(totalImages / PAGE_SIZE);
+		if (response.status === 404) {
+			return Math.ceil(totalImages / PAGE_SIZE) - 1;
 		}
+
+		console.log("Total Pages: " + totalPages);
 
 		return totalPages;
 	} catch (error) {
@@ -94,6 +95,7 @@ const App: React.FC = () => {
 
 	const handleLastPage = () => {
 		setCurrentPage(totalPages as number);
+		console.log("total page: " + totalPages + 1);
 		localStorage.setItem("currentPage", String(totalPages));
 	};
 
