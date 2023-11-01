@@ -7,7 +7,7 @@ interface ImageGridProps {
 
 const ImageGrid: React.FC<ImageGridProps> = ({ images, onImageClick }) => {
 	return (
-		<div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+		<div className="grid grid-cols-1 mx-8   gap-6 md:grid-cols-2 lg:grid-cols-3">
 			{images.map((image) => (
 				<div
 					key={image.id}
