@@ -48,7 +48,7 @@ const fetchImages = async (currentPage: number, limit: number) => {
 // Fetch the total number of pages
 const fetchTotalPages = async () => {
 	try {
-		const response = await fetch(`${import.meta.env.VITE_URL_API}/picturescount`);
+		const response = await fetch(`${import.meta.env.VITE_URL_API}/pictures/pictures/picturescount`);
 		if (!response.ok) {
 			throw new Error(`API request failed with status ${response.status}`);
 		}
