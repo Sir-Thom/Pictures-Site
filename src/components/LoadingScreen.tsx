@@ -1,4 +1,4 @@
-import { RiLoader3Fill, RiLoader4Line } from "react-icons/ri";
+import { RiLoader3Fill } from "react-icons/ri";
 
 function LoadingScreen() {
     return (

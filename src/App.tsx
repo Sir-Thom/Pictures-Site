@@ -1,4 +1,4 @@
-import React, { useEffect, useState,Suspense } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
 import ImageGrid from "./components/ImageGrid";
 import ImageSlider from "./components/ImageSlider";
@@ -9,7 +9,7 @@ const PAGE_SIZE = 12; // Number of images per page
 // Fetch images from the API
 const fetchImages = async (currentPage: number, limit: number) => {
 	try {
-		const lastSeenId = (currentPage - 1) * limit;
+		const lastSeenId = (currentPage - 1) * limit ;
 		console.log(lastSeenId);
 		const response = await fetch(
 		
@@ -48,14 +48,15 @@ const fetchImages = async (currentPage: number, limit: number) => {
 // Fetch the total number of pages
 const fetchTotalPages = async () => {
 	try {
-		const response = await fetch(`${import.meta.env.VITE_URL_API}/pictures/pictures/picturescount`);
+		const response = await fetch(`${import.meta.env.VITE_URL_API}/pictures/count/`);
 		if (!response.ok) {
 			throw new Error(`API request failed with status ${response.status}`);
 		}
 
 		const data = await response.json();
 
-		const totalImages = data.count;
+		const totalImages = data;
+
 		console.log("Total Images: " + totalImages);
 
 		// Calculate the total number of pages based on PAGE_SIZE
