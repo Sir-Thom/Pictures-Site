@@ -3,15 +3,16 @@ import { useQuery } from "react-query";
 import ImageGrid from "./components/ImageGrid";
 import ImageSlider from "./components/ImageSlider";
 import Pagination from "./components/Pagination";
-
+import Loader from "./components/LoadingScreen";
 const PAGE_SIZE = 12; // Number of images per page
 
 // Fetch images from the API
 const fetchImages = async (currentPage: number, limit: number) => {
 	try {
-		const lastSeenId = (currentPage - 1) * limit;
+		const lastSeenId = (currentPage - 1) * limit ;
 		console.log(lastSeenId);
 		const response = await fetch(
+		
 			`${
 				import.meta.env.VITE_URL_API
 			}/pictures/paginated/?last_seen_id=${lastSeenId}&limit=${limit}`
@@ -47,14 +48,15 @@ const fetchImages = async (currentPage: number, limit: number) => {
 // Fetch the total number of pages
 const fetchTotalPages = async () => {
 	try {
-		const response = await fetch(`${import.meta.env.VITE_URL_API}/picturescount`);
+		const response = await fetch(`${import.meta.env.VITE_URL_API}/pictures/count/`);
 		if (!response.ok) {
 			throw new Error(`API request failed with status ${response.status}`);
 		}
 
 		const data = await response.json();
 
-		const totalImages = data.count;
+		const totalImages = data;
+
 		console.log("Total Images: " + totalImages);
 
 		// Calculate the total number of pages based on PAGE_SIZE
@@ -113,27 +115,28 @@ const App: React.FC = () => {
 	};
 
 	return (
-		<div className="mx-auto bg-gray-100 p-4 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
-			<h1 className="my-6 text-center text-2xl font-bold ">Image Gallery</h1>
-			{isLoading ? (
-				<div className="h-screen w-full dark:bg-gray-700">Loading...</div>
-			) : (
-				<>
-					{images != null && <ImageGrid images={images} onImageClick={handleImageClick} />}
-					{selectedImage && <ImageSlider images={[selectedImage]} onClose={handleCloseSlider} />}
-					{totalPages !== undefined && (
-						<Pagination
-							currentPage={currentPage}
-							totalPages={totalPages as number}
-							onPageChange={handlePageChange}
-							onFirstPage={handleFirstPage}
-							onLastPage={handleLastPage}
-						/>
-					)}
-				</>
-			)}
-		</div>
-	);
+		<div className="  bg-gray-100 p-4 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+		  <h1 className="my-6 text-center text-2xl font-bold ">Image Gallery</h1>
+		  {isLoading ? ( // Display the loading screen when data is loading
+        <Loader />
+      ) : (
+        // Render the content when data is ready
+        <>
+          {images != null && <ImageGrid images={images} onImageClick={handleImageClick} />}
+          {selectedImage && <ImageSlider images={[selectedImage]} onClose={handleCloseSlider} />}
+          {totalPages !== undefined && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages as number}
+              onPageChange={handlePageChange}
+              onFirstPage={handleFirstPage}
+              onLastPage={handleLastPage}
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
 };
 
 export default App;

@@ -24,7 +24,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images, onClose }) => {
 							key={image.id}
 							src={`data:image/jpg;base64,${image.data}`}
 							alt={image.filename}
-							className=" h-full w-full object-fill"
+							className=" h-full w-screen object-contain"
 						/>
 					))}
 				</div>
