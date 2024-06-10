@@ -1,13 +1,15 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const [, setCookie] = useCookies(['token']);
 
-  const handleSubmit = async (e:any) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     setError(null);
     try {
@@ -17,7 +19,6 @@ export default function Login() {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({ email, password }),
-        credentials: 'include', 
       });
 
       if (!response.ok) {
@@ -26,9 +27,9 @@ export default function Login() {
       
       const data = await response.json();
       console.log('Login successful:', data);
-      document.cookie = `token=${data.token};path=/`;
+      setCookie('token', data.token, { path: '/' });
       navigate('/'); 
-    } catch (err:any) {
+    } catch (err) {
       setError(err.message);
     }
   };
